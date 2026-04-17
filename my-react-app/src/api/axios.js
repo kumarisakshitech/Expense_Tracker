@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: 'https://expense-tracker-backend-pbjj.onrender.com/api',
 });
 
 // Attach token to every request
