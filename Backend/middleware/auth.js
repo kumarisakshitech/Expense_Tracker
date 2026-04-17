@@ -1,7 +1,7 @@
 import User from '../models/userModel.js';
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = "mysecret123"; // ✅ SAME SECRET
+const JWT_SECRET = process.env.JWT_SECRET || "mysecret123"; // use env var in production
 
 export const authMiddleware = async (req, res, next) => {
     const authHeader = req.headers.authorization;

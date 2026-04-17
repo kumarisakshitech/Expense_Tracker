@@ -3,7 +3,7 @@ import validator from 'validator';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = "mysecret123"; // ✅ FIXED (same everywhere)
+const JWT_SECRET = process.env.JWT_SECRET || "mysecret123"; // use env var in production
 const TOKEN_EXPIRES = "24h";
 
 const createtoken = (id) => {
