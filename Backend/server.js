@@ -1,3 +1,4 @@
+
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -14,16 +15,29 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 4000;
 
+// ✅ Allowed frontend URL
+const allowedOrigin = "https://expense-tracker-front-vlq3.onrender.com";
+
+// ➤ CORS Configuration (FIXED)
+app.use(cors({
+  origin: allowedOrigin,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
+// ✅ Handle preflight requests (VERY IMPORTANT)
+app.options('*', cors({
+  origin: allowedOrigin,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
 // ➤ Middleware
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
 // ➤ DB Connection
 connectDB();
-
 
 // ➤ Routes
 app.use('/api/user', userRouter);
@@ -31,14 +45,13 @@ app.use('/api/income', incomeRouter);
 app.use('/api/expense', expenseRouter);
 app.use('/api/dashboard', dashboardRouter);
 
-
 // ➤ Test API
 app.get('/', (req, res) => {
   res.send('API Working 🚀');
 });
 
-
 // ➤ Server Start
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+```
